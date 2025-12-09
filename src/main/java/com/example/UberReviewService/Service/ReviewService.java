@@ -1,13 +1,17 @@
 package com.example.UberReviewService.Service;
 
 
+import com.example.UberReviewService.Model.Booking;
 import com.example.UberReviewService.Model.Review;
 import com.example.UberReviewService.repositories.ReviewRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Repository;
 
+
+
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 @Repository
 public class ReviewService implements CommandLineRunner {
@@ -24,16 +28,22 @@ public class ReviewService implements CommandLineRunner {
         Review r= Review.builder()
                 .content("Amazon ride quality")
                 .rating(5.0)
-                .createdAt(new Date())
-                .updatedAt(new Date())
-                .rating(5.0)
                 .build();
-        System.out.println(r);
+
+        Booking b= Booking
+                .builder()
+                .review(r)
+                .endTime(new Date())
+                .build();
+
         reviewRepository.save(r);
+
+        System.out.println(r);
+
 
         List<Review> reviews=reviewRepository.findAll();
 
-        for(Review review=reviews){
+        for(Review review:reviews){
             System.out.println(r.getContent());
         }
     }
